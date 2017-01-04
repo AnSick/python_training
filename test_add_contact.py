@@ -30,8 +30,8 @@ class test_add_contact(unittest.TestCase):
                                     mobile_number="010-352-51-32", email="sunnykimwoobit@gmail.co.kr",
                                     website="kimwoobin.co.kr", notes="Handsome and sweet",
                                     work_number="512 09 56", fax="3321", email2="dagaga", email3="agsagsag",
-                                    day_of_birth="3", month_of_birth="2", birth_year="1994",
-                                    day_of_anniversary="6", month_of_anniversary="4", anniversary_year="4131",
+                                    day_of_birth="1", month_of_birth="1", birth_year="1994",
+                                    day_of_anniversary="1", month_of_anniversary="1", anniversary_year="4131",
                                     address2="hjfkhaskfjsaf", phone2="jsfahsfjksaf",
                                     photo="C:\\Workspace\\Python\\python_training\\hola.png"))
         self.return_to_homepage(wd)
@@ -110,6 +110,11 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.website)
+        #Reformat dates of birth and anniversary
+        contact.day_of_birth = str(int(contact.day_of_birth) + 2)
+        contact.month_of_birth = str(int(contact.month_of_birth) +1)
+        contact.day_of_anniversary = str(int(contact.day_of_anniversary) + 2)
+        contact.month_of_anniversary = str(int(contact.month_of_anniversary) + 1)
         if not wd.find_element_by_xpath(
                         "//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).is_selected():
             wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).click()

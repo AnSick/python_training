@@ -5,7 +5,7 @@ class Contact():
                        email, website, notes,
                        work_number, fax, email2, email3, day_of_birth, month_of_birth,
                        birth_year, day_of_anniversary, month_of_anniversary, anniversary_year,
-                       address2, phone2):
+                       address2, phone2, photo):
         self.first_name = first_name
         self.middle_name = middle_name
         self.last_name = last_name
@@ -30,3 +30,4 @@ class Contact():
         self.anniversary_year = anniversary_year
         self.address2 = address2
         self.phone2 = phone2
+        self.photo = photo

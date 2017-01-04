@@ -3,6 +3,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 import unittest
 from contact import Contact
 
+
 def is_alert_present(wd):
     try:
         wd.switch_to_alert().text
@@ -10,25 +11,31 @@ def is_alert_present(wd):
     except:
         return False
 
+
 class test_add_contact(unittest.TestCase):
     def setUp(self):
         self.wd = WebDriver()
         self.wd.implicitly_wait(60)
-    
+
     def test_add_contact(self):
         wd = self.wd
         self.go_to_homepage(wd)
         self.login(wd)
         self.go_to_add_contact(wd)
-        self.create_contact(wd, Contact(first_name="Kim", middle_name="Woo", last_name="Bin", nickname="bigbangtheory13", title="leading software engineer",
-                            company="SBS Entertainment", address="Songnam-gu, 145-12, Okchomdang, Seoul", home_number="713 823-52-32",
-                            mobile_number="010-352-51-32", email="sunnykimwoobit@gmail.co.kr", website="kimwoobin.co.kr", notes="Handsome and sweet",
-                            work_number="512 09 56", fax="3321", email2="dagaga", email3="agsagsag", day_of_birth="3", month_of_birth="2", birth_year="1994",
-                            day_of_anniversary="6", month_of_anniversary="4", anniversary_year="4131",
-                            address2="hjfkhaskfjsaf", phone2="jsfahsfjksaf"))
+        self.create_contact(wd,
+                            Contact(first_name="Kim2", middle_name="Woo", last_name="Bin", nickname="bigbangtheory13",
+                                    title="leading software engineer",
+                                    company="SBS Entertainment", address="Songnam-gu, 145-12, Okchomdang, Seoul",
+                                    home_number="713 823-52-32",
+                                    mobile_number="010-352-51-32", email="sunnykimwoobit@gmail.co.kr",
+                                    website="kimwoobin.co.kr", notes="Handsome and sweet",
+                                    work_number="512 09 56", fax="3321", email2="dagaga", email3="agsagsag",
+                                    day_of_birth="3", month_of_birth="2", birth_year="1994",
+                                    day_of_anniversary="6", month_of_anniversary="4", anniversary_year="4131",
+                                    address2="hjfkhaskfjsaf", phone2="jsfahsfjksaf",
+                                    photo="C:\\Workspace\\Python\\python_training\\hola.png"))
         self.return_to_homepage(wd)
         self.logout(wd)
-
 
     def test_add_empty_contact(self):
         wd = self.wd
@@ -36,11 +43,13 @@ class test_add_contact(unittest.TestCase):
         self.login(wd)
         self.go_to_add_contact(wd)
         self.create_contact(wd, Contact(first_name="", middle_name="", last_name="", nickname="", title="",
-                            company="", address="", home_number="",
-                            mobile_number="", email="", website="", notes="",
-                            work_number="", fax="", email2="", email3="", day_of_birth="3", month_of_birth="2", birth_year="",
-                            day_of_anniversary="3", month_of_anniversary="2", anniversary_year="",
-                            address2="", phone2=""))
+                                        company="", address="", home_number="",
+                                        mobile_number="", email="", website="", notes="",
+                                        work_number="", fax="", email2="", email3="", day_of_birth="3",
+                                        month_of_birth="2", birth_year="",
+                                        day_of_anniversary="3", month_of_anniversary="2", anniversary_year="",
+                                        address2="", phone2="",
+                                        photo="C:\\Workspace\\Python\\python_training\\hola.png"))
         self.return_to_homepage(wd)
         self.logout(wd)
 
@@ -81,9 +90,8 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.mobile_number)
-        ### ToDo: fix the photo problem ###
-        #wd.find_element_by_name("photo").click()
-        #wd.find_element_by_name("photo").sendKeys("C:\Workspace\Python\python_training\hola.png");
+        wd.find_element_by_css_selector('input[type="file"]').send_keys(
+            contact.photo)
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
         wd.find_element_by_name("work").send_keys(contact.work_number)
@@ -102,17 +110,23 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.website)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).is_selected():
+        if not wd.find_element_by_xpath(
+                        "//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).is_selected():
             wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[%s]" % contact.month_of_birth).is_selected():
+        if not wd.find_element_by_xpath(
+                        "//div[@id='content']/form/select[2]//option[%s]" % contact.month_of_birth).is_selected():
             wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[%s]" % contact.month_of_birth).click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.birth_year)
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).click()
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).click()
+        if not wd.find_element_by_xpath(
+                        "//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).is_selected():
+            wd.find_element_by_xpath(
+                "//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).click()
+        if not wd.find_element_by_xpath(
+                        "//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).is_selected():
+            wd.find_element_by_xpath(
+                "//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).click()
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.anniversary_year)
@@ -148,6 +162,7 @@ class test_add_contact(unittest.TestCase):
 
     def tearDown(self):
         self.wd.quit()
+
 
 if __name__ == '__main__':
     unittest.main()

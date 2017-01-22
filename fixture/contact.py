@@ -104,3 +104,13 @@ class ContactHelper:
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
         self.app.open_homepage()
+
+
+    def edit_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name('//*[@id="maintable"]/tbody/tr[2]/td[8]/a').click()
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys("Goochi")
+        wd.find_element_by_name("update").click()
+        self.app.open_homepage()

@@ -63,6 +63,11 @@ class ContactHelper:
         self.app.change_field_value("phone2", contact.phone2)
         self.app.change_field_value("notes", contact.notes)
 
+    def count(self):
+        wd=self.app.wd
+        self.app.open_homepage()
+        return len(wd.find_elements_by_name("selected[]"))
+
     def go_to_add_contact(self):
         wd = self.app.wd
         # Go to contact creation form

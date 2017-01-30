@@ -7,7 +7,6 @@ from fixture.contact import ContactHelper
 class Application():
     def __init__(self):
         self.wd = WebDriver()
-        self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
@@ -22,12 +21,14 @@ class Application():
     def open_homepage(self):
         wd = self.wd
         # Open homepage
-        wd.get("http://localhost/addressbook/")
+        if not wd.current_url.endswith("/addressbook/"):
+            wd.get("http://localhost/addressbook/")
 
     def return_to_homepage(self):
         wd = self.wd
         # Return to home page
-        wd.find_element_by_link_text("home page").click()
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_link_text("Last name")) > 0):
+            wd.find_element_by_link_text("home page").click()
 
 
     def change_field_value(self, field_name, text):

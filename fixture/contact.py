@@ -71,8 +71,8 @@ class ContactHelper:
     def go_to_add_contact(self):
         wd = self.app.wd
         # Go to contact creation form
-        wd.find_element_by_link_text("add new").click()
-
+        if not wd.current_url.endswith("/edit.php"):
+            wd.find_element_by_link_text("add new").click()
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -81,7 +81,7 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
-        self.app.open_homepage()
+        self.app.return_to_homepage()
 
 
     def modify_first_contact(self, new_contact_data):
@@ -89,7 +89,7 @@ class ContactHelper:
         wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[2]/td[8]/a').click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
-        self.app.open_homepage()
+        self.app.return_to_homepage()
 
     def delete_contact(self, contactNumber):
         wd = self.app.wd
@@ -98,7 +98,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//*[@value=%s]" % contactNumber).click()
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
-        self.app.open_homepage()
+        self.app.return_to_homepage()
 
 
     def edit_contact(self, contactNumber):
@@ -108,4 +108,4 @@ class ContactHelper:
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("Goochi")
         wd.find_element_by_name("update").click()
-        self.app.open_homepage()
+        self.app.return_to_homepage()

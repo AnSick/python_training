@@ -6,89 +6,62 @@ class ContactHelper:
         wd = self.app.wd
         self.go_to_add_contact()
         # Create new contact
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.first_name)
-        wd.find_element_by_name("middlename").click()
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(contact.middle_name)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.last_name)
-        wd.find_element_by_name("nickname").click()
-        wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys(contact.nickname)
-        wd.find_element_by_name("title").click()
-        wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys(contact.title)
-        wd.find_element_by_name("company").click()
-        wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys(contact.company)
-        wd.find_element_by_name("address").click()
-        wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(contact.address)
-        wd.find_element_by_name("home").click()
-        wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(contact.home_number)
-        wd.find_element_by_name("mobile").click()
-        wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(contact.mobile_number)
-        wd.find_element_by_css_selector('input[type="file"]').send_keys(
-            contact.photo)
-        wd.find_element_by_name("work").click()
-        wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys(contact.work_number)
-        wd.find_element_by_name("fax").click()
-        wd.find_element_by_name("fax").clear()
-        wd.find_element_by_name("fax").send_keys(contact.fax)
-        wd.find_element_by_name("email2").click()
-        wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys(contact.email2)
-        wd.find_element_by_name("email3").click()
-        wd.find_element_by_name("email3").clear()
-        wd.find_element_by_name("email3").send_keys(contact.email3)
-        wd.find_element_by_name("email").click()
-        wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(contact.email)
-        wd.find_element_by_name("homepage").click()
-        wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys(contact.website)
-        # Reformat dates of birth and anniversary
-        contact.day_of_birth = str(int(contact.day_of_birth) + 2)
-        contact.month_of_birth = str(int(contact.month_of_birth) + 1)
-        contact.day_of_anniversary = str(int(contact.day_of_anniversary) + 2)
-        contact.month_of_anniversary = str(int(contact.month_of_anniversary) + 1)
-        if not wd.find_element_by_xpath(
-                        "//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).click()
-        if not wd.find_element_by_xpath(
-                        "//div[@id='content']/form/select[2]//option[%s]" % contact.month_of_birth).is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[%s]" % contact.month_of_birth).click()
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.birth_year)
-        if not wd.find_element_by_xpath(
-                        "//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).is_selected():
-            wd.find_element_by_xpath(
-                "//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).click()
-        if not wd.find_element_by_xpath(
-                        "//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).is_selected():
-            wd.find_element_by_xpath(
-                "//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).click()
-        wd.find_element_by_name("ayear").click()
-        wd.find_element_by_name("ayear").clear()
-        wd.find_element_by_name("ayear").send_keys(contact.anniversary_year)
-        wd.find_element_by_name("address2").click()
-        wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys(contact.address2)
-        wd.find_element_by_name("phone2").click()
-        wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys(contact.phone2)
-        wd.find_element_by_name("notes").click()
-        wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys(contact.notes)
+        self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.app.return_to_homepage()
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
+        self.app.change_field_value("first_name", contact.first_name)
+        self.app.change_field_value("middlename", contact.middle_name)
+        self.app.change_field_value("lastname", contact.last_name)
+        self.app.change_field_value("nickname", contact.nickname)
+        self.app.change_field_value("title", contact.title)
+        self.app.change_field_value("company", contact.company)
+        self.app.change_field_value("address", contact.address)
+        self.app.change_field_value("home", contact.home_number)
+        self.app.change_field_value("mobile", contact.mobile_number)
+        if contact.photo is not None:
+            wd.find_element_by_css_selector('input[type="file"]').send_keys(
+                contact.photo)
+        self.app.change_field_value("work", contact.work_number)
+        self.app.change_field_value("fax", contact.fax)
+        self.app.change_field_value("email2", contact.email2)
+        self.app.change_field_value("email3", contact.email3)
+        self.app.change_field_value("email", contact.email)
+        self.app.change_field_value("homepage", contact.website)
+        # Reformat dates of birth and anniversary
+        if contact.day_of_birth is not None:
+            contact.day_of_birth = str(int(contact.day_of_birth) + 2)
+            if not wd.find_element_by_xpath(
+                            "//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).is_selected():
+                wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[%s]" % contact.day_of_birth).click()
+
+        if contact.month_of_birth is not None:
+            contact.month_of_birth = str(int(contact.month_of_birth) + 1)
+            if not wd.find_element_by_xpath(
+                            "//div[@id='content']/form/select[2]//option[%s]" % contact.month_of_birth).is_selected():
+                wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[%s]" % contact.month_of_birth).click()
+
+        if contact.day_of_anniversary is not None:
+            contact.day_of_anniversary = str(int(contact.day_of_anniversary) + 2)
+            if not wd.find_element_by_xpath(
+                            "//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).is_selected():
+                wd.find_element_by_xpath(
+                    "//div[@id='content']/form/select[3]//option[%s]" % contact.day_of_anniversary).click()
+
+        if contact.month_of_anniversary is not None:
+            contact.month_of_anniversary = str(int(contact.month_of_anniversary) + 1)
+            if not wd.find_element_by_xpath(
+                            "//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).is_selected():
+                wd.find_element_by_xpath(
+                    "//div[@id='content']/form/select[4]//option[%s]" % contact.month_of_anniversary).click()
+
+        self.app.change_field_value("byear", contact.birth_year)
+        self.app.change_field_value("ayear", contact.anniversary_year)
+        self.app.change_field_value("address2", contact.address2)
+        self.app.change_field_value("phone2", contact.phone2)
+        self.app.change_field_value("notes", contact.notes)
 
     def go_to_add_contact(self):
         wd = self.app.wd
@@ -106,12 +79,10 @@ class ContactHelper:
         self.app.open_homepage()
 
 
-    def edit_first_contact(self):
+    def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
         wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[2]/td[8]/a').click()
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("Goochi")
+        self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.app.open_homepage()
 

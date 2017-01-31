@@ -10,7 +10,7 @@ class ContactHelper:
         # Create new contact
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        self.app.return_to_homepage()
+        self.app.open_homepage()
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -83,7 +83,7 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
-        self.app.return_to_homepage()
+        self.app.open_homepage()
 
 
     def modify_first_contact(self, new_contact_data):
@@ -91,7 +91,7 @@ class ContactHelper:
         wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[2]/td[8]/a').click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
-        self.app.return_to_homepage()
+        self.app.open_homepage()
 
     def delete_contact(self, contactNumber):
         wd = self.app.wd
@@ -100,7 +100,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//*[@value=%s]" % contactNumber).click()
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
-        self.app.return_to_homepage()
+        self.app.open_homepage()
 
 
     def edit_contact(self, contactNumber):
@@ -110,14 +110,16 @@ class ContactHelper:
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("Goochi")
         wd.find_element_by_name("update").click()
-        self.app.return_to_homepage()
+        self.app.open_homepage()
 
 
     def get_contact_list(self):
         wd = self.app.wd
         contacts = []
         for element in wd.find_elements_by_name("entry"):
-            text = element.text
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(first_name = text, id = id))
+            data = element.find_elements_by_tag_name("td")
+            first_name = data[2].text
+            last_name = data[1].text
+            contacts.append(Contact(first_name = first_name, last_name = last_name, id = id))
         return contacts

@@ -5,7 +5,7 @@ class Contact():
                        email=None, website=None, notes=None,
                        work_number=None, fax=None, email2=None, email3=None, day_of_birth=None, month_of_birth=None,
                        birth_year=None, day_of_anniversary=None, month_of_anniversary=None, anniversary_year=None,
-                       address2=None, phone2=None, photo=None):
+                       address2=None, phone2=None, photo=None, id=None):
         self.first_name = first_name
         self.middle_name = middle_name
         self.last_name = last_name
@@ -31,3 +31,4 @@ class Contact():
         self.address2 = address2
         self.phone2 = phone2
         self.photo = photo
+        self.id = id

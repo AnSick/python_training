@@ -1,3 +1,5 @@
+from model.contact import Contact
+
 class ContactHelper:
     def __init__(self, app):
         self.app = app
@@ -109,3 +111,13 @@ class ContactHelper:
         wd.find_element_by_name("firstname").send_keys("Goochi")
         wd.find_element_by_name("update").click()
         self.app.return_to_homepage()
+
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        contacts = []
+        for element in wd.find_elements_by_name("entry"):
+            text = element.text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(first_name = text, id = id))
+        return contacts

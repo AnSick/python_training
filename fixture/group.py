@@ -41,10 +41,15 @@ class GroupHelper:
 
     def delete_first_group(self):
         wd = self.app.wd
+        self.delete_group_by_index(0)
+
+
+    def delete_group_by_index(self, index):
+        wd = self.app.wd
         self.open_groups_page()
         #select first group
         #submit deletion
-        self.select_first_group()
+        self.select_group_by_index(index)
         wd.find_element_by_name("delete").click()
         self.open_groups_page()
         self.group_cache = None
@@ -52,42 +57,53 @@ class GroupHelper:
 
     def modify_first_group(self, new_group_data):
         wd = self.app.wd
+        self.modify_group_by_index(0)
+
+    def modify_group_by_index(self, index, new_group_data):
+        wd = self.app.wd
         self.open_groups_page()
         #select first group
         #submit edit
-        self.select_first_group()
+        self.select_group_by_index(index)
         wd.find_element_by_name("edit").click()
         self.fill_group_form(new_group_data)
         wd.find_element_by_name("update").click()
         self.open_groups_page()
         self.group_cache = None
 
+
     def select_first_group(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
-    def delete_group(self, groupnumber):
+    def select_group_by_index(self, index):
         wd = self.app.wd
-        self.open_groups_page()
+        wd.find_elements_by_name("selected[]")[index].click()
+
+
+
+    #def delete_group(self, groupnumber):
+    #    wd = self.app.wd
+    #    self.open_groups_page()
         #select a group by identificator from database
         #submit deletion
-        wd.find_element_by_xpath("//*[@value=%s]" % groupnumber).click()
-        wd.find_element_by_name("delete").click()
-        self.open_groups_page()
+    #    wd.find_element_by_xpath("//*[@value=%s]" % groupnumber).click()
+    #    wd.find_element_by_name("delete").click()
+    #    self.open_groups_page()
 
 
-    def edit_group(self, groupNumber):
-        wd = self.app.wd
-        self.open_groups_page()
+    #def edit_group(self, groupNumber):
+    #    wd = self.app.wd
+    #    self.open_groups_page()
         #select a group by identificator from database
         #submit edit
-        wd.find_element_by_xpath("//*[@value=%s]" % groupNumber).click()
-        wd.find_element_by_name("edit").click()
-        wd.find_element_by_name("group_name").click()
-        wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys("GET CHANGED")
-        wd.find_element_by_name("update").click()
-        self.open_groups_page()
+    #    wd.find_element_by_xpath("//*[@value=%s]" % groupNumber).click()
+    #    wd.find_element_by_name("edit").click()
+    #    wd.find_element_by_name("group_name").click()
+    #    wd.find_element_by_name("group_name").clear()
+    #    wd.find_element_by_name("group_name").send_keys("GET CHANGED")
+    #    wd.find_element_by_name("update").click()
+    #    self.open_groups_page()
 
     group_cache = None
 

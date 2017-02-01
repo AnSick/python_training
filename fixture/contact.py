@@ -77,11 +77,16 @@ class ContactHelper:
         if not wd.current_url.endswith("/edit.php"):
             wd.find_element_by_link_text("add new").click()
 
+
     def delete_first_contact(self):
+        wd = self.app.wd
+        self.delete_some_contact(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         # check the first contact
         # submit
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
         self.app.open_homepage()
@@ -90,7 +95,15 @@ class ContactHelper:
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
-        wd.find_element_by_xpath('//*[@id="maintable"]/tbody/tr[2]/td[8]/a').click()
+        self.modify_contact_by_index(0)
+
+
+    def modify_contact_by_index(self, index, new_contact_data):
+        wd = self.app.wd
+       # stro = "//*[@id=\"maintable\"]/tbody/tr[" + str(index+1) + "]/td[8]/a"
+        #wd.find_element_by_xpath(stro).click()
+        entry_element = wd.find_elements_by_name("entry")[index]
+        entry_element.find_elements_by_tag_name("td")[7].click()
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.app.open_homepage()

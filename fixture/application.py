@@ -3,7 +3,6 @@ from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
 
-
 class Application():
     def __init__(self):
         self.wd = WebDriver()
@@ -37,6 +36,7 @@ class Application():
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
+
 
 
     def destroy(self):

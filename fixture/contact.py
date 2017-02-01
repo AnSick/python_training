@@ -11,6 +11,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.app.open_homepage()
+        self.contact_cache = None
 
     def fill_contact_form(self, contact):
         wd = self.app.wd
@@ -84,6 +85,7 @@ class ContactHelper:
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
         self.app.open_homepage()
+        self.contact_cache = None
 
 
     def modify_first_contact(self, new_contact_data):
@@ -92,34 +94,38 @@ class ContactHelper:
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.app.open_homepage()
+        self.contact_cache = None
 
-    def delete_contact(self, contactNumber):
-        wd = self.app.wd
+    #def delete_contact(self, contactNumber):
+    #    wd = self.app.wd
         # check the first contact
         # submit
-        wd.find_element_by_xpath("//*[@value=%s]" % contactNumber).click()
-        wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
-        wd.switch_to_alert().accept()
-        self.app.open_homepage()
+    #    wd.find_element_by_xpath("//*[@value=%s]" % contactNumber).click()
+    #    wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
+    #    wd.switch_to_alert().accept()
+    #    self.app.open_homepage()
 
 
-    def edit_contact(self, contactNumber):
-        wd = self.app.wd
-        wd.get("http://localhost/addressbook/edit.php?id=%s" % contactNumber)
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("Goochi")
-        wd.find_element_by_name("update").click()
-        self.app.open_homepage()
+    #def edit_contact(self, contactNumber):
+    #    wd = self.app.wd
+    #    wd.get("http://localhost/addressbook/edit.php?id=%s" % contactNumber)
+    #    wd.find_element_by_name("firstname").click()
+    #    wd.find_element_by_name("firstname").clear()
+    #    wd.find_element_by_name("firstname").send_keys("Goochi")
+    #    wd.find_element_by_name("update").click()
+    #    self.app.open_homepage()
 
+
+    contact_cache = None
 
     def get_contact_list(self):
-        wd = self.app.wd
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            data = element.find_elements_by_tag_name("td")
-            first_name = data[2].text
-            last_name = data[1].text
-            contacts.append(Contact(first_name = first_name, last_name = last_name, id = id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.contact_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                data = element.find_elements_by_tag_name("td")
+                first_name = data[2].text
+                last_name = data[1].text
+                self.contact_cache.append(Contact(first_name = first_name, last_name = last_name, id = id))
+        return list(self.contact_cache)

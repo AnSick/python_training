@@ -7,13 +7,17 @@ fixture = None
 def app(request):
     global fixture
     if fixture is None:
-        fixture = Application()
+        browser = request.config.getoption("--browser")
+        fixture = Application(browser=browser)
     else:
         if not fixture.is_valid():
-            fixture = Application()
+            browser = request.config.getoption("--browser")
+            fixture = Application(browser=browser)
     fixture.session.ensure_login(username="admin", password="secret")
     return fixture
 
+def pytest_addoption(parser):
+    parser.addoption("--browser", action = "store", default = "firefox")
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):

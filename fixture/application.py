@@ -4,7 +4,7 @@ from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
 
 class Application():
-    def __init__(self, browser="firefox"):
+    def __init__(self, browser, baseUrl):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
@@ -16,6 +16,7 @@ class Application():
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
+        self.baseUrl = baseUrl
 
     def is_valid(self):
         try:
@@ -28,7 +29,7 @@ class Application():
         wd = self.wd
         # Open homepage
         if not wd.current_url.endswith("/addressbook/"):
-            wd.get("http://localhost/addressbook/")
+            wd.get(self.baseUrl)
 
     def return_to_homepage(self):
         wd = self.wd

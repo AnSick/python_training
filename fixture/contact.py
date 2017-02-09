@@ -80,20 +80,19 @@ class ContactHelper:
             wd.find_element_by_link_text("add new").click()
 
 
-    def delete_first_contact(self):
-        wd = self.app.wd
-        self.delete_some_contact(0)
-
     def delete_contact_by_index(self, index):
         wd = self.app.wd
         # check the first contact
         # submit
-        wd.find_elements_by_name("selected[]")[index].click()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath('//*[@id="content"]/form[2]/div[2]/input').click()
         wd.switch_to_alert().accept()
         self.app.open_homepage()
         self.contact_cache = None
 
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value = '%s']" % index).click()
 
     def delete_contact_by_id(self, id):
         wd = self.app.wd
@@ -210,4 +209,31 @@ class ContactHelper:
         work_number = re.search("W: (.*)", text).group(1)
         phone2 = re.search("P: (.*)", text).group(1)
         return Contact(home_number=home_number, mobile_number=mobile_number, work_number=work_number, phone2=phone2)
+
+
+    def add_contact_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.app.open_homepage()
+        self.select_contact_by_index(str(contact_id))
+        if not wd.find_element_by_xpath(
+                            "//div[@class='right']/select//option[@value=%s]" % group_id).is_selected():
+            wd.find_element_by_xpath(
+                "//div[@class='right']/select//option[@value=%s]" % group_id).click()
+        wd.find_element_by_name("add").click()
+        self.app.open_homepage()
+
+
+    def open_group_page_by_index(self, index):
+        wd = self.app.wd
+        url = self.app.baseUrl + ("/?group=%s" % index)
+        wd.get(url)
+
+
+    def delete_contact_from_group_by_index(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_group_page_by_index(group_id)
+        self.select_contact_by_index(contact_id)
+        wd.find_element_by_name('remove').click()
+        self.app.open_homepage()
+
 

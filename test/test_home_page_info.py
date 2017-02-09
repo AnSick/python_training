@@ -25,6 +25,18 @@ def merge_phones_like_on_home_page(contact):
                    [contact.home_number, contact.mobile_number,contact.work_number, contact.phone2]))))
 
 
+def merge_phones_like_on_home_page_for_db_contact(contact):
+    contact.home_number = convert_zeros_to_plus(contact.home_number)
+    contact.work_number = convert_zeros_to_plus(contact.work_number)
+    contact.mobile_number = convert_zeros_to_plus(contact.mobile_number)
+    contact.phone2 = convert_zeros_to_plus(contact.phone2)
+    return merge_phones_like_on_home_page(contact)
+
+
+def convert_zeros_to_plus(number):
+    return re.sub('^\s*0{2}', '+', number)
+
+
 def merge_emails_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
                                 filter(lambda x: x is not None,
@@ -37,8 +49,7 @@ def test_info_of_all_contacts(app, db):
     for i in range(0, len(contacts_from_home_page)):
         contact_home_page = contacts_from_home_page[i]
         contact_db = contacts_from_db[i]
-        assert contact_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(
-            contact_db)
+        assert contact_home_page.all_phones_from_home_page == merge_phones_like_on_home_page_for_db_contact(contact_db)
         assert contact_home_page.first_name.strip() == contact_db.first_name.strip()
         assert contact_home_page.last_name.strip() == contact_db.last_name.strip()
         assert contact_home_page.address.strip() == contact_db.address.strip()

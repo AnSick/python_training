@@ -46,7 +46,10 @@ class ORMFixture:
 
     def convert_contacts_to_model(self, contacts):
         def convert(contact):
-            return Contact(id=str(contact.id), first_name=contact.firstname, last_name=contact.lastname)
+            if contact.deprecated is not None:
+                return None
+            else:
+                return Contact(id=str(contact.id), first_name=contact.firstname, last_name=contact.lastname)
 
         return list(map(convert, contacts))
 
@@ -57,7 +60,8 @@ class ORMFixture:
     @db_session
     def get_contacts_in_group(self, group):
         orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
-        return self.convert_contacts_to_model(orm_group.contacts)
+        #return self.convert_contacts_to_model(orm_group.contacts)
+        return self.convert_contacts_to_model(select(c for c in ORMFixture.ORMContact if c.deprecated is None and orm_group in c.groups))
 
     @db_session
     def get_contacts_not_in_group(self, group):
@@ -74,4 +78,17 @@ class ORMFixture:
 
     @db_session
     def get_groups_with_contacts(self):
-        return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup if g.contacts))
+        #orm_contact = list(select(c for c in ORMFixture.ORMContact if c.deprecated is None))[0]
+        groups = list(select(g for g in ORMFixture.ORMGroup if g.contacts))
+        new_groups=[]
+        for group in groups:
+            group_contacts = list(group.contacts)
+            for contact in group_contacts:
+                if contact.deprecated is not None:
+                    group_contacts.remove(contact)
+            if len(group_contacts) != 0:
+                new_groups.append(group)
+        def convert(group):
+            return Group(id=str(group.id), name=group.name, header=group.header, footer=group.footer)
+        return list(map(convert, new_groups))
+        #return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup if g.contacts))

@@ -1,12 +1,21 @@
+import json
+import os
+
 from fixture.orm import ORMFixture
 from model.group import Group
 
-db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
+config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "target.json")
+with open(config_file) as f:
+    configuration = json.load(f)
 
-try:
-    l = db.get_contacts_in_group(Group(id="101"))
-    for item in l:
-        print(item)
-    print(len(l))
-finally:
-    pass
+db = ORMFixture(
+    host=configuration['db']['host'],
+    name=configuration['db']['name'],
+    user=configuration['db']['user'],
+    password=configuration['db']['password']
+)
+
+l = db.get_contacts_in_group(Group(id='30'))
+for item in l:
+    print(item)
+print(len(l))

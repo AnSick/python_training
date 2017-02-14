@@ -86,10 +86,10 @@ class ORMFixture:
 
             alive_contacts_count = 0
             for contact in group_contacts:
-                if contact.deprecated is not None:
+                if contact.deprecated is None:
                     alive_contacts_count += 1
 
-            if len(group_contacts) == alive_contacts_count:
+            if alive_contacts_count > 0:
                 new_groups.append(group)
 
         def convert(group):

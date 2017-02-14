@@ -83,11 +83,15 @@ class ORMFixture:
         new_groups=[]
         for group in groups:
             group_contacts = list(group.contacts)
+
+            alive_contacts_count = 0
             for contact in group_contacts:
                 if contact.deprecated is not None:
-                    group_contacts.remove(contact)
-            if len(group_contacts) != 0:
+                    alive_contacts_count += 1
+
+            if len(group_contacts) == alive_contacts_count:
                 new_groups.append(group)
+
         def convert(group):
             return Group(id=str(group.id), name=group.name, header=group.header, footer=group.footer)
         return list(map(convert, new_groups))

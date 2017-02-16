@@ -1,0 +1,124 @@
+{
+  "testCases" : [ {
+    "uid" : "258f90840a115939",
+    "name" : "test_add_group[None:::]",
+    "title" : "Test add group [None:::]",
+    "time" : {
+      "start" : 1487271107807,
+      "stop" : 1487271115808,
+      "duration" : 8001
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  }, {
+    "uid" : "e33d94babbaea099",
+    "name" : "test_add_group[None:name:headerF^Yg DC^G?i:footer@\"I[m]",
+    "title" : "Test add group [None:name:headerF^Yg DC^G?i:footer@\"I[m]",
+    "time" : {
+      "start" : 1487271115808,
+      "stop" : 1487271117587,
+      "duration" : 1779
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  }, {
+    "uid" : "9bef408145b5b0ef",
+    "name" : "test_add_group[None:name}IU#0 :header3y=2Z2&Ah{N(jNJ(:footerZ\"w)\\HuD\", 1M.<V N]",
+    "title" : "Test add group [None:name}IU#0 :header3y=2Z2&Ah{N(jNJ(:footerZ\"w)\\HuD\", 1M.<V N]",
+    "time" : {
+      "start" : 1487271117587,
+      "stop" : 1487271119351,
+      "duration" : 1764
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  }, {
+    "uid" : "a93899343dddcde5",
+    "name" : "test_add_group[None:name x1[|>+J:header6A jS@m :footerE mS+']",
+    "title" : "Test add group [None:name x1[|>+J:header6A jS@m :footerE mS+']",
+    "time" : {
+      "start" : 1487271119352,
+      "stop" : 1487271121363,
+      "duration" : 2011
+    },
+    "severity" : "NORMAL",
+    "status" : "FAILED"
+  }, {
+    "uid" : "683162ae09cee590",
+    "name" : "test_add_group[None:nameuBD:headerZ.Q)Hl0:footer-{} :SNiQo^j|0]",
+    "title" : "Test add group [None:nameuBD:headerZ.Q)Hl0:footer-{} :SNiQo^j|0]",
+    "time" : {
+      "start" : 1487271121364,
+      "stop" : 1487271123208,
+      "duration" : 1844
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  }, {
+    "uid" : "f56672893ab1d5cf",
+    "name" : "test_add_group[None:nameUV:header   sSi2+:footeropd'O!|N?4d]",
+    "title" : "Test add group [None:nameUV:header   sSi2+:footeropd'O!|N?4d]",
+    "time" : {
+      "start" : 1487271123208,
+      "stop" : 1487271124878,
+      "duration" : 1670
+    },
+    "severity" : "NORMAL",
+    "status" : "FAILED"
+  }, {
+    "uid" : "d29ee98400621509",
+    "name" : "test_add_group[None:name $ b$:headerk9D_keOr <5<Fe X1:footerdi@Q\"J>P6]",
+    "title" : "Test add group [None:name $ b$:headerk9D_keOr <5<Fe X1:footerdi@Q\"J>P6]",
+    "time" : {
+      "start" : 1487271124879,
+      "stop" : 1487271126834,
+      "duration" : 1955
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  }, {
+    "uid" : "11a06408ec8b87eb",
+    "name" : "test_add_group[None:name0[P^:header$+PE4:footerd%(]",
+    "title" : "Test add group [None:name0[P^:header$+PE4:footerd%(]",
+    "time" : {
+      "start" : 1487271126835,
+      "stop" : 1487271128576,
+      "duration" : 1741
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  }, {
+    "uid" : "925cd4237dc933f2",
+    "name" : "test_add_group[None:nameO |r C:header+ x \"}Eg0\" :footer.lqI_-)#;p h]",
+    "title" : "Test add group [None:nameO |r C:header+ x \"}Eg0\" :footer.lqI_-)#;p h]",
+    "time" : {
+      "start" : 1487271128577,
+      "stop" : 1487271130421,
+      "duration" : 1844
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  }, {
+    "uid" : "760a77177cee13f",
+    "name" : "test_add_group[None:nameFAt):headerA:footerdG]fXihB[&qGj7'QD]",
+    "title" : "Test add group [None:nameFAt):headerA:footerdG]fXihB[&qGj7'QD]",
+    "time" : {
+      "start" : 1487271130422,
+      "stop" : 1487271132537,
+      "duration" : 2115
+    },
+    "severity" : "NORMAL",
+    "status" : "FAILED"
+  }, {
+    "uid" : "936c532c636393b1",
+    "name" : "test_add_group[None:name0:header:footervD4ags]",
+    "title" : "Test add group [None:name0:header:footervD4ags]",
+    "time" : {
+      "start" : 1487271132538,
+      "stop" : 1487271134466,
+      "duration" : 1928
+    },
+    "severity" : "NORMAL",
+    "status" : "PASSED"
+  } ]
+}
